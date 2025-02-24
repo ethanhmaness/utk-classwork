@@ -1,0 +1,218 @@
+<title>SRM 706, D2, 500-Pointer (SellingFruits)</title>
+<h3>SRM 706, D2, 500-Pointer (SellingFruits)</h3>
+<h3>James S. Plank</h3>
+Sun Jan 29 10:47:03 EST 2017
+<hr>
+
+<UL>
+<LI><a href=https://community.topcoder.com/stat?c=problem_statement&pm=14507&rd=16850>Problem Statement</a>.
+<LI> <a href=main.cpp>A <b>main()</b> with the examples compiled in.</a>
+<LI> <a href=SellingFruits.cpp>A skeleton that compiles with <b>main.cpp</b>.</a>
+<LI> <a href=tests.sh><b>tests.sh</b>.</a>  MD5 hash: <tt>655bd5a4d5efb4aab145b6cd295ae290</tt>
+<LI> <a href=answers.txt><b>answers.txt</b>.</a>  MD5 hash: <tt>1d960085723b7e78eef2b0df0d5e25e2</tt>
+<p>
+<LI> <b>Problem Given in Topcoder</b>: January, 2017
+<LI> <b>Competitors who opened the problem</b>: 380
+<LI> <b>Competitors who submitted a solution</b>: 325
+<LI> <b>Number of correct solutions</b>: 189
+<LI> <b>Accuracy (percentage correct vs those who opened)</b>: 49.7%
+<LI> <b>Average Correct Time</b>: 20 minutes, 31 seconds.
+</UL>
+
+<hr>
+<h3>In case Topcoder's servers are down</h3>
+
+Here is a summary of the problem:
+
+<UL>
+<LI> Every day, you need to eat one piece of fruit, and spend <b>x</b> dollars.
+<LI> You currently have <b>f</b> pieces of fruit, and <b>d</b> dollars.
+<LI> You can buy fruit at a price of <b>p</b> dollars per piece of fruit.
+<LI> What is the maximum number of days that you can live?
+<LI> All numbers are between 1 and 2,000,000,000.
+</UL>
+
+     
+<h3>The examples</h3>
+
+<center>
+<table border=3 cellpadding=3>
+<tr><td align=center>Example</td>
+    <td align=center>x</td>
+    <td align=center>f</td>
+    <td align=center>d</td>
+    <td align=center>p</td>
+    <td align=center>Answer</td></tr>
+<tr><td align=center>0</td>
+    <td align=center>3</td>
+    <td align=center>5</td>
+    <td align=center>100</td>
+    <td align=center>10</td>
+    <td align=center>11</td></tr>
+<tr><td align=center>1</td>
+    <td align=center>2</td>
+    <td align=center>17</td>
+    <td align=center>20</td>
+    <td align=center>1</td>
+    <td align=center>10</td></tr>
+<tr><td align=center>2</td>
+    <td align=center>1</td>
+    <td align=center>97</td>
+    <td align=center>98</td>
+    <td align=center>1</td>
+    <td align=center>97</td></tr>
+<tr><td align=center>3</td>
+    <td align=center>16</td>
+    <td align=center>4</td>
+    <td align=center>8</td>
+    <td align=center>2</td>
+    <td align=center>0</td></tr>
+<tr><td align=center>4</td>
+    <td align=center>17</td>
+    <td align=center>1</td>
+    <td align=center>2000000000</td>
+    <td align=center>4</td>
+    <td align=center>95238095</td></tr>
+<tr><td align=center>5</td>
+    <td align=center>1</td>
+    <td align=center>1996245611</td>
+    <td align=center>1999990159</td>
+    <td align=center>123</td>
+    <td align=center>1996275808</td></tr>
+<tr><td align=center>6</td>
+    <td align=center>15000000</td>
+    <td align=center>100</td>
+    <td align=center>2000000000</td>
+    <td align=center>1</td>
+    <td align=center>133</td></tr>
+<tr><td align=center>7</td>
+    <td align=center>1</td>
+    <td align=center>1000000000</td>
+    <td align=center>2000000000</td>
+    <td align=center>1000000000</td>
+    <td align=center>1000000000</td></tr>
+</table></center><p>
+
+<h3>Testing yourself</h3>
+
+Like the <a href=../../2010/Cryptography/index.html>Cryptography Problem</a>,
+I have a shell script <b>tests.sh</b>, that you can use to test your program.  When you
+run <b>tests.sh</b>, your answer should be identical to
+<b><a href=answers.txt>answers.txt</a></b>
+
+<hr>
+<h3>Hints</h3>
+
+
+This is a typical frustrating Topcoder problem -- it seems so simple, but there are pitfalls
+out there that will trip you up.  I'm going to give you two pieces of advice, before I 
+give you some time to work this out on your own:
+<OL>
+<LI> Don't use integers for anything -- use <b>long long</b>'s.  When Topcoder puts constraints
+at the 2,000,000,000 mark, they're doing it so that you'll hit overflow with integers if you're
+not super-careful.  So don't use integers.
+<LI> Beware of trying to use math that will end up with floating point, when all of the
+equations involve integers.  When I solve these problems, I don't use any floating point
+operations.
+</OL>
+Give this one some time on your own, but try to leave 20 minutes or so to read what I've
+written below, because chances are that you won't solve this the way that I'm solving it,
+and you should take a look at the way I have solved it.
+
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+
+<h3>If the constraints weren't so big, you could just enumerate the fruit that you buy.</h3>
+
+The first thing that I did was copy the parameters to <b>maxDays</b> into <b>long long</b>
+variables in the class definition.  For example, I added a variable <b>X</b> to the
+<b>SellingFruits</b> class, and the first thing that I did was copy <b>x</b> to <b>X</b>.
+I never used <b>x</b> again.  I did the same thing for <b>f</b>, <b>d</b> and <b>p</b>.
+<p>
+Next, I wrote a new method inside the class called:
+
+<p><center><table border=3 cellpadding=3><td><pre>
+long long days_if_i_buy_b_fruit(long long b);
+</pre></td></table></center><p>
+
+This calculates the number of days that I live if I buy <b>b</b> fruit.  For example,
+in example 0: 
+
+<UL>
+<LI> If I buy b=0 fruit, then I will live 5 days, because I have 5 fruits, and at least 15 dollars.
+<LI> If I buy b=1 fruit, then I will live 6 days, because I have 6 fruits, and at least 18 dollars.
+<LI> If I buy b=7 fruits, then I will live 10 days.  Although I have 13 fruits, I only have 30
+dollars left after buying the 7 fruits, so I live 30 days.
+</UL>
+
+When you write this, take care to handle illegal values of <b>b</b> (those that are negative,
+and those that are greater than D*P)</b>.  You may need this feature later.
+<p>
+Once you have written <b>days_if_i_buy_b_fruit()</b>, 
+you can simply try all potential values of <b>b</b>, from 
+0 up to the maximum that you can afford.  Return the maximum number of days that you will live.
+<P>
+Go ahead and write this -- it will solve examples 0 through 3.  It won't solve example 4,
+though, because the constraints are too big, and you are trying every fruit.
+<p>
+This is the point at which you may want to bust out some algebra, but resist that thought.
+Go ahead and print out each value of <b>b</b>  and how many days that lets you live.
+Do this for example 0 (I'm doing it for you):
+<pre>
+Fruit          Days
+bought(b)      you live
+------         --------
+0               5
+1               6
+2               7
+3               8
+4               9
+5              10
+6              11
+7              10
+8               6
+9               3
+10              0
+</pre>
+
+You'll note that the days you live increases to a maximum, and then decreases. 
+You can use that fact to limit the values of <b>b</b> that you test.
+<p>
+
+What I did was the following.  I tried every value of <b>b</b> that was a multiple of 10,000.
+Sure, for examples 0 through 3, the only value of <b>b</b> that fits that description is 0,
+but for example 4, I'm trying quite a few of them.  The maximum number of fruit that I'll try,
+given the constraints, is 2,000,000,000 / 10,000, which is 200,000.  So this part of my 
+program will run fast enough (you get roughly 10,000,000 operations on topcoder).
+<p>
+So, go ahead determine the best value of <b>b</b> that is a multiple of 10,000.  
+Call that <b>b10K</b>.
+You know that the actual best 
+value of <b>b</b> will be between (<b>B10K</b>-10,000) and (<b>B10K</b>+10,000).  
+You can test all
+of those with 20,000 calls to 
+<b>days_if_i_buy_b_fruit(long long b)</b>.  That's also fast enough.  
+<p>
+This approach lets you solve the problem quickly enough for topcoder, and you'll note that you
+don't use any floating point.  
+<p>
+If you haven't solved the problem already, go ahead and try to solve it in this manner.
+I will email the TA's my solution, and they can show that solution (or theirs) to you
+at the end of the first part of lab.
+<hr>
+<h3>Is this the best solution?</h3>
+
+No -- far from it.  That solution is <i>O(<b>D/P</b>)</i>.   The proper way to solve this
+problem, when you're not doing a programming competition, is to (ha ha) use algebra, and
+get it right.  That will be <i>O(1)</i>.
+<p>
+Another fun way to solve this is to write a method called:
+
+<p><center><table border=3 cellpadding=3><td><pre>
+bool can_i_live_y_days(long long y);
+</pre></td></table></center><p>
+
+Then, you can do a binary search on the number of days that you can live -- start with 0
+(which you know you can do), and (F+D/P+1), which you know you can't do.  Then use these
+to do a binary search.  Now your running time is <i>O(log(F+D/P))</i>.
+

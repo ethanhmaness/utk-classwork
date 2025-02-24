@@ -1,0 +1,141 @@
+<title>SRM 609, D2, 250-Pointer (MagicalStringDiv2)</title>
+<h3>SRM 609, D2, 250-Pointer (MagicalStringDiv2)</h3>
+<h3>James S. Plank</h3>
+Tue Oct 15 11:48:12 EDT 2019
+<hr>
+
+<UL>
+<LI><a href=https://community.topcoder.com/stat?c=problem_statement&pm=13004&rd=15842>Problem Statement</a>.
+<LI> <a href=main.cpp>A <b>main()</b> with the examples compiled in.</a>
+<LI> <a href=MagicalStringDiv2.cpp>A skeleton that compiles with <b>main.cpp</b>.</a>
+<p>
+<LI> <b>Problem Given in Topcoder</b>: 2014
+<LI> <b>Competitors who opened the problem</b>: 1229
+<LI> <b>Competitors who submitted a solution</b>: 1199
+<LI> <b>Number of correct solutions</b>: 1164
+<LI> <b>Accuracy (percentage correct vs those who opened)</b>: 94.7%
+<LI> <b>Average Correct Time</b>: 8 minutes, 42 seconds.
+</UL>
+
+<hr>
+<h3>In case Topcoder's servers are down</h3>
+
+(Please use the workflow in the problem <a href=http://web.eecs.utk.edu/~plank/topcoder-writeups/2010/Cryptography/index.html>Cryptography</a>).
+<p>
+Here is a summary of the problem:
+
+<UL>
+<LI> You are given a string <b>S</b>, composed solely of the characters <tt>'&lt;'</tt> and <tt>'&gt;'</tt>
+<LI> <b>S.size()</b> is even.
+<LI> You are allowed to replace a 
+<tt>'&lt;'</tt> with a <tt>'&gt;'</tt>, and vice versa.
+<LI> Let <i>k</i> be <b>S.size()</b> / 2.
+<LI> Your goal is to convert <b>S</b> to <i>k</i> 
+<tt>'&gt;'s</tt> followed by <i>k</i> <tt>'&lt;'</tt>'s.
+<LI> Return the minimum number of replacements than you need to do.
+<LI> Topcoder constrains <b>S.size()</b> between 2 and 50.  My testing script has strings up
+     to 1000 in size, and you should be able to do up to about 10,000,000.
+</UL>
+
+<hr>
+
+<h3>The examples</h3>
+
+<center>
+<table border=3 cellpadding=3>
+<tr><td align=center>Example</td>
+<td align=center><b>S</b></td>
+<td align=center>Answer</td></tr>
+
+<tr><td align=center valign=center>0</td>
+<td align=center valign=center><tt>">><<><"</tt></td>
+<td align=center valign=center><tt>2</td></tr>
+
+<tr><td align=center valign=center>1</td>
+<td align=center valign=center><tt>">>>><<<<"</tt></td>
+<td align=center valign=center><tt>0</td></tr>
+
+<tr><td align=center valign=center>2</td>
+<td align=center valign=center><tt>"<<>>"</tt></td>
+<td align=center valign=center><tt>4</td></tr>
+
+<tr><td align=center valign=center>3</td>
+<td align=center valign=center><tt>"<><<<>>>>><<>>>>><>><<<>><><><><<><<<<<><<>>><><><"</tt></td>
+<td align=center valign=center><tt>20</td></tr>
+
+</table>
+</center><p>
+
+<hr>
+<h3>Testing yourself</h3>
+
+I have a shell script
+<b><a href=tests.sh>tests.sh</a></b>, that you can use to test your program.  When you
+run <b>tests.sh</b>, your answer should be identical to
+<b><a href=answers.txt>answers.txt</a></b>.  The shell script should take well under a second.
+
+<hr>
+<h3>Hints</h3>
+
+At 1199 submissions, a 97% success rate, and an average score of 227.77, this has to be one
+of the easiest Topcoder problems in history.  I would hope that you get it in under five minutes.
+If you want help, keep reading, but I urge you to figure this one out on your own.
+
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+
+When do you change a character?
+<UL>
+<LI> When its index is less than <b>S.size()/2</b>, and it is not a <tt>'>'</tt>.
+<LI> When its index is greater than or equal to <b>S.size()/2</b>, and it is not a <tt>'<'</tt>.
+</UL>
+Run through <b>S</b> and add those up.
+

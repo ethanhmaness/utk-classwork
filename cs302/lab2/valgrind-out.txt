@@ -1,0 +1,127 @@
+==3839440== Memcheck, a memory error detector
+==3839440== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3839440== Using Valgrind-3.17.0-07f0cdcbb4-20210319X and LibVEX; rerun with -h for copyright info
+==3839440== Command: ./hashylvania
+==3839440== Parent PID: 3815606
+==3839440== 
+--3839440-- 
+--3839440-- Valgrind options:
+--3839440--    --leak-check=full
+--3839440--    --show-leak-kinds=all
+--3839440--    --track-origins=yes
+--3839440--    --verbose
+--3839440--    --log-file=valgrind-out.txt
+--3839440-- Contents of /proc/version:
+--3839440--   Linux version 4.18.0-348.12.2.el8_5.x86_64 (mockbuild@x86-vm-09.build.eng.bos.redhat.com) (gcc version 8.5.0 20210514 (Red Hat 8.5.0-4) (GCC)) #1 SMP Mon Jan 17 07:06:06 EST 2022
+--3839440-- 
+--3839440-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed
+--3839440-- Page sizes: currently 4096, max supported 4096
+--3839440-- Valgrind library directory: /usr/libexec/valgrind
+--3839440-- Reading syms from /home/emaness/cs302/lab2/hashylvania
+--3839440-- Reading syms from /usr/lib64/ld-2.28.so
+--3839440--   Considering /usr/lib/debug/.build-id/52/3b1c63a3f4b12da75660bf483d63560694d81f.debug ..
+--3839440--   .. build-id is valid
+--3839440-- Reading syms from /usr/libexec/valgrind/memcheck-amd64-linux
+--3839440--    object doesn't have a symbol table
+--3839440--    object doesn't have a dynamic symbol table
+--3839440-- Scheduler: using generic scheduler lock implementation.
+--3839440-- Reading suppressions file: /usr/libexec/valgrind/default.supp
+==3839440== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-3839440-by-emaness-on-hydra10.eecs.utk.edu
+==3839440== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-3839440-by-emaness-on-hydra10.eecs.utk.edu
+==3839440== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-3839440-by-emaness-on-hydra10.eecs.utk.edu
+==3839440== 
+==3839440== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==3839440== don't want to do, unless you know exactly what you're doing,
+==3839440== or are doing some strange experiment):
+==3839440==   /usr/libexec/valgrind/../../bin/vgdb --pid=3839440 ...command...
+==3839440== 
+==3839440== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==3839440==   /path/to/gdb ./hashylvania
+==3839440== and then give GDB the following command
+==3839440==   target remote | /usr/libexec/valgrind/../../bin/vgdb --pid=3839440
+==3839440== --pid is optional if only one valgrind process is running
+==3839440== 
+--3839440-- REDIR: 0x4022470 (ld-linux-x86-64.so.2:strlen) redirected to 0x580d0572 (???)
+--3839440-- REDIR: 0x4022240 (ld-linux-x86-64.so.2:index) redirected to 0x580d058c (???)
+--3839440-- Reading syms from /usr/libexec/valgrind/vgpreload_core-amd64-linux.so
+--3839440-- Reading syms from /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
+==3839440== WARNING: new redirection conflicts with existing -- ignoring it
+--3839440--     old: 0x04022470 (strlen              ) R-> (0000.0) 0x580d0572 ???
+--3839440--     new: 0x04022470 (strlen              ) R-> (2007.0) 0x04c3c090 strlen
+--3839440-- REDIR: 0x401ec50 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c3d170 (strcmp)
+--3839440-- REDIR: 0x40229d0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c410a0 (mempcpy)
+--3839440-- Reading syms from /usr/lib64/libstdc++.so.6.0.25
+--3839440--    object doesn't have a symbol table
+--3839440-- Reading syms from /usr/lib64/libm-2.28.so
+--3839440--   Considering /usr/lib/debug/.build-id/37/7f483ce8b794170d3bb5a1d75438e766af267e.debug ..
+--3839440--   .. build-id is valid
+--3839440-- Reading syms from /usr/lib64/libgcc_s-8-20210514.so.1
+--3839440--    object doesn't have a symbol table
+--3839440-- Reading syms from /usr/lib64/libc-2.28.so
+--3839440--   Considering /usr/lib/debug/.build-id/ac/eb5a6a8e8000a295b4024b2754d117433411ef.debug ..
+--3839440--   .. build-id is valid
+--3839440-- REDIR: 0x57ff900 (libc.so.6:memmove) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+==3839440== Preferring higher priority redirection:
+--3839440--     old: 0x058d5680 (__memcpy_avx_unalign) R-> (2018.0) 0x04c3e5b0 __memcpy_avx_unaligned_erms
+--3839440--     new: 0x058d5680 (__memcpy_avx_unalign) R-> (2018.1) 0x04c400e0 memmove
+--3839440-- REDIR: 0x57fec10 (libc.so.6:strncpy) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57ffc40 (libc.so.6:strcasecmp) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57fe520 (libc.so.6:strcat) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57fec70 (libc.so.6:rindex) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x5801270 (libc.so.6:rawmemchr) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x581a780 (libc.so.6:wmemchr) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x581a1a0 (libc.so.6:wcscmp) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57ffa60 (libc.so.6:mempcpy) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57ff890 (libc.so.6:bcmp) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57feba0 (libc.so.6:strncmp) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57fe5d0 (libc.so.6:strcmp) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57ff9d0 (libc.so.6:memset) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x581a160 (libc.so.6:wcschr) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57feb00 (libc.so.6:strnlen) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57fe6b0 (libc.so.6:strcspn) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57ffc90 (libc.so.6:strncasecmp) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57fe650 (libc.so.6:strcpy) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57ffde0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x581ba80 (libc.so.6:wcsnlen) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57fecb0 (libc.so.6:strpbrk) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57fe580 (libc.so.6:index) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57feac0 (libc.so.6:strlen) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x5805d50 (libc.so.6:memrchr) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57ffce0 (libc.so.6:strcasecmp_l) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57ff850 (libc.so.6:memchr) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x581a2b0 (libc.so.6:wcslen) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57fef70 (libc.so.6:strspn) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57ffbe0 (libc.so.6:stpncpy) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57ffb80 (libc.so.6:stpcpy) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x58012b0 (libc.so.6:strchrnul) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x57ffd30 (libc.so.6:strncasecmp_l) redirected to 0x4a2f77b (_vgnU_ifunc_wrapper)
+--3839440-- REDIR: 0x58d24a0 (libc.so.6:__strrchr_avx2) redirected to 0x4c3ba20 (rindex)
+--3839440-- REDIR: 0x57faa90 (libc.so.6:malloc) redirected to 0x4c3602f (malloc)
+--3839440-- REDIR: 0x58d2670 (libc.so.6:__strlen_avx2) redirected to 0x4c3bf70 (strlen)
+--3839440-- REDIR: 0x58cec60 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x4c3f7b0 (bcmp)
+--3839440-- REDIR: 0x58cdb60 (libc.so.6:__strcmp_avx2) redirected to 0x4c3d030 (strcmp)
+--3839440-- REDIR: 0x4edcd50 (libstdc++.so.6:operator new(unsigned long)) redirected to 0x4c367c1 (operator new(unsigned long))
+--3839440-- REDIR: 0x58d5680 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x4c400e0 (memmove)
+--3839440-- REDIR: 0x4edad80 (libstdc++.so.6:operator delete(void*)) redirected to 0x4c38f1f (operator delete(void*))
+--3839440-- REDIR: 0x58d5660 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4c40ce0 (mempcpy)
+--3839440-- REDIR: 0x57fb0e0 (libc.so.6:free) redirected to 0x4c38991 (free)
+==3839440== 
+==3839440== HEAP SUMMARY:
+==3839440==     in use at exit: 768 bytes in 16 blocks
+==3839440==   total heap usage: 110 allocs, 94 frees, 86,536 bytes allocated
+==3839440== 
+==3839440== Searching for pointers to 16 not-freed blocks
+==3839440== Checked 102,864 bytes
+==3839440== 
+==3839440== 768 bytes in 16 blocks are definitely lost in loss record 1 of 1
+==3839440==    at 0x4C36833: operator new(unsigned long) (vg_replace_malloc.c:417)
+==3839440==    by 0x401B7C: main (hashylvania.cpp:97)
+==3839440== 
+==3839440== LEAK SUMMARY:
+==3839440==    definitely lost: 768 bytes in 16 blocks
+==3839440==    indirectly lost: 0 bytes in 0 blocks
+==3839440==      possibly lost: 0 bytes in 0 blocks
+==3839440==    still reachable: 0 bytes in 0 blocks
+==3839440==         suppressed: 0 bytes in 0 blocks
+==3839440== 
+==3839440== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

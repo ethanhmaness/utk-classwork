@@ -1,0 +1,148 @@
+<title>SRM 610, D2, 250-Pointer (DivideByZero)</title>
+<h3>SRM 610, D2, 250-Pointer (DivideByZero)</h3>
+<h3>James S. Plank</h3>
+Sat Jan 18 09:54:26 EST 2014 <br>
+Modified: Mon Oct 18 21:15:06 EDT 2021
+<hr>
+
+<UL>
+<LI><a href=https://community.topcoder.com/stat?c=problem_statement&pm=12911&rd=15843>Problem Statement</a>.
+<LI> <a href=main.cpp>A <b>main()</b> with the examples compiled in.</a>
+<LI> <a href=DivideByZero.cpp>A skeleton that compiles with <b>main.cpp</b>.</a>
+<p>
+<LI> <b>Problem Given in Topcoder</b>: 2014
+<LI> <b>Competitors who opened the problem</b>: 769
+<LI> <b>Competitors who submitted a solution</b>: 643
+<LI> <b>Number of correct solutions</b>: 441
+<LI> <b>Accuracy (percentage correct vs those who opened)</b>: 57.3%
+<LI> <b>Average Correct Time</b>: 20 minutes, 32 seconds.
+</UL>
+
+<hr>
+<h3>In case Topcoder's servers are down</h3>
+
+Here is a summary of the problem:
+
+<UL>
+<LI> You are given a vector of integers, named <i>N</i>.
+<LI> <i>v's</i> size is &le; 1000 and the elements of <i>N</i> are between 1 and 1,000.
+     (I've increased the topcoder constraints -- they were originally 100 and 100).
+<LI> The elements of <i>N</i> are distinct.
+<LI> Let <i>i</i> and <i>j</i> be any two distinct elements of <i>N</i>, and suppose that <i>i &gt; m</i>.  Calculate <i>i/j</i>, using integer division.  If it is not in <i>N</i> add it to <i>N</i>.
+<LI> Continue doing this until you can't add any more elements of <i>N</i>
+<LI> Return the size of <i>N</i>.
+<LI> BTW, it doesn't matter what order you add elements to <i>N</i>.  The answer will always
+     be the same.
+</UL>
+<hr>
+<h3>The examples</h3>
+
+<pre>
+ #  |    N                        |  Answer
+--- | --------------------------- | -------
+ 0  | { 9, 2 }                    | 3: You'll add 9/2 = 4, but then you're done.
+ 1  | { 8, 2 }                    | 3: Ditto.
+ 2  | { 50 }                      | 1: There are no pairs of elements.
+ 3  | { 1, 5, 8, 30, 15, 4 }      | 11: You'll add 2, 3, 6, 7 and 10.
+ 4  | { 1, 2, 4, 8, 16, 32, 64 }  | 7: You're already done.
+ 5  | { 6, 2, 18 }                | 7: You'll add 1, 3, 4 and 9.
+</pre>
+
+<h3>Testing yourself</h3>
+
+Like the <a href=../../2010/Cryptography/index.html>Cryptography Problem</a>, 
+I have a shell script 
+<b><a href=tests.sh>tests.sh</a></b>, that you can use to test your program.  When you 
+run <b>tests.sh</b>, your answer should be identical to 
+<b><a href=answers.txt>answers.txt</a></b>.
+
+<hr>
+<h3>Hints</h3>
+
+This one tripped up many of the Topcoder contestants -- See if you can do better!
+<p>
+The constraints of this problem state that <b>N</b> only holds numbers between 1 and 1,000,
+and <b>N.size()</b> is &le; 1,000.
+Since (<i>a</i> div <i>b</i>) is always going to be less than <i>a</i>, the numbers in <i>N</i>
+will always be between 1 and 1,000.
+That puts some constraints on input that we can leverage.  
+In particular, if our solution is <i>O(<b>N.size()</b><sup>2</sup>)</i>, it will be
+fast enough.
+<p>
+Here's a solution that comes to mind -- keep two collections of numbers: those that you
+have processed (call it <b>P</b> -- it will be a vector), 
+and the vector <i>N</i>.
+You can also maintain a vector, which we'll call <b>T</b>, that tells us in <i>O(1)</i> time
+whether a number is in <i>v</i>.  It will contain 1,001 booleans, and <b>T[i]</b> is <b>true</b>
+if <i>i</i> is in <i>N</i>.  It is <b>false</b> otherwise.
+<p>
+Now do the following:
+<UL>
+<LI> Set <b>T[<i>n</i>]</b> to <b>true</b> for each element <i>n</i> in <b>N</b>
+<LI> Set <b>P</b> to be empty.
+<LI> Now, for each element <i>n</i> in <b>N</b>, do the following:
+<UL>
+<p>
+<LI> For each element <i>p</i> in <b>P</b>, find <i>k = (n div p)</i>, or 
+<i>k = (p div n)</i>, whichever is non-zero.
+<LI> Check <b>T</b> to see if <i>T[k]</i> is <b>true</b>.  If it is, ignore <i>k</i>.
+<LI> Otherwise, set <b>T[j]</b> to <b>true</b>, and add <i>k</i> to <b>N</b>.
+<LI> When you're done with each element in <b>P</b>, add <i>n</i> to <b>P</b>.
+</UL>
+<p>
+
+<LI> Finally, return the size of <b>N</b> or <b>P</b>.  They will both be the same size.
+
+</UL>
+
+Let's illustrate this with Example 0, where <b>numbers</b> is { 9, 2 }.  Below is the
+initial state of the three vectors (we only show the first 12 elements of <b>T</b>, 
+because all of the higher ones will always be false.  Also, in the pictures, 1 is
+<b>true</b> and 0 is <b>false</b>):
+
+<p><center><table border=3><td><img src=DBZ0.jpg></td></table></center><p>
+
+Now, run through <b>N</b> with an integer <i>i</i>.  When <i>i = 0</i>, <i>n = 9</i>.
+We want to run through <b>P</b>, but <b>P</b> is empty, so we're done with <i>n</i> -- we
+add it to <b>P</b>:
+
+<p><center><table border=3><td><img src=DBZ1.jpg></td></table></center><p>
+
+Next, <i>i = 1</i> and <i>n = 2</i>.  We run through <b>P</b> and there is one element: <i>p = 9</i>.  Since <i>p</i> is bigger than <i>n</i>, we set <i>k = (p div n) = 4</i>.  We check to see
+if <b>T[4]</b> = 0, which it does, so we set <b>T[4] = 1</b> and add 4 to <b>N</b>:
+
+<p><center><table border=3><td><img src=DBZ2.jpg></td></table></center><p>
+
+At this point, we're done with <b>P</b>, so we add <i>n</i> to <b>P</b>:
+
+<p><center><table border=3><td><img src=DBZ3.jpg></td></table></center><p>
+
+Finally, we continue with <i>i = 2</i> and <i>n = 4</i>.  We run through <b>P</b>: When
+<i>p = 9</i>, <i>k = 2</i>, and since <b>T[2]</b> equals 1, we ignore <i>k</i>.  Similarly, when
+<i>p = 2</i>, <i>k</i> also equals 2, and since <b>T[2]</b> equals 1, we ignore <i>k</i> again.  
+At this point, we're done with <b>P</b>, so we add <i>n</i> to <b>P</b>:
+
+<p><center><table border=3><td><img src=DBZ4.jpg></td></table></center><p>
+
+Now, we're done with <b>N</b>, so we return the size of <b>P</b>, which is three.  As you can
+see, when we're done, <b>P</b> and <b>N</b> will be identical, so we could simply return 
+the size of <b>N</b>.
+<hr>
+Let's think about the running time of this algorithm.  
+Suppose there end up being <i>n</i> elements
+of <b>N</b>.  Then our checking loop runs <i>O(n<sup>2</sup>)</i> times.  Inside the loop we
+do an "if", a division, a check of <b>T[j]</b>, potentially a <b>push_back()</b> to <b>N</b>
+and setting <b>T[j]</b> to <b>true</b>, and a <b>push_back()</b> to <b>P</b>.  All of those
+are <i>O(1)</i>.  So our program is <i>O(n<sup>2</sup>)</i>.  With <i>n</i> capped at 1,000,
+this is fast enough for topcoder.
+<p>
+Now think about the choice of data structure for <i>T</i>.  Because the values of <i>v</i>
+are limited to &le; 1000, we can make <i>T</i> a vector of size 1,001, and checking to see 
+whether a value is in <i>N</i> is <i>O(1)</i>.
+<p>
+Suppose <i>T</i> were instead a set.  Then checking would be <i>O(log n)</i>, and 
+our program would run in <i>O(n<sup>2</sup>log n)</i>.
+<p>
+And finally, suppose that we didn't use <i>T</i> at all, but instead used <i>N</i>.
+Then checking would be <i>O(n)</i>, and our program would be <i>O(n<sup>3</sup>)</i>.
+As always, our choice of data structure is very important!

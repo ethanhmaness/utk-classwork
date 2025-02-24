@@ -1,0 +1,117 @@
+<title>SRM 706, D2, 250-Pointer (ThreeIncreasing)</title>
+<h3>SRM 706, D2, 250-Pointer (ThreeIncreasing)</h3>
+<h3>James S. Plank</h3>
+Sat Dec 22 10:49:34 EST 2018
+<hr>
+
+<UL>
+<LI><a href=https://community.topcoder.com/stat?c=problem_statement&pm=14508&rd=16850>Problem Statement</a>.
+<LI> <a href=main.cpp>A <b>main()</b> with the examples compiled in.</a>
+<LI> <a href=ThreeIncreasing.cpp>A skeleton that compiles with <b>main.cpp</b>.</a>
+<LI> <a href=tests.sh><b>tests.sh</b>.</a>  MD5 hash: <tt>ffca61f795e02f4e0b5ffdda104d76fe</tt>
+<LI> <a href=answers.txt><b>answers.txt</b>.</a>  MD5 hash: <tt> 85049871b28db1886235cfd6f7ab31f4</tt>
+<p>
+<LI> <b>Problem Given in Topcoder</b>: January, 2017
+<LI> <b>Competitors who opened the problem</b>: 404
+<LI> <b>Competitors who submitted a solution</b>: 377
+<LI> <b>Number of correct solutions</b>: 314
+<LI> <b>Accuracy (percentage correct vs those who opened)</b>: 77.72%
+<LI> <b>Average Correct Time</b>: 13 minutes, 42 seconds.
+</UL>
+
+<hr>
+<h3>In case Topcoder's servers are down</h3>
+
+Here is a summary of the problem:
+
+<UL>
+<LI> You are given three values, which in the problem are the numbers of candies in three
+     boxes.  The boxes are labeled <b>a</b>, <b>b</b> and <b>c</b>.
+<LI> You want to eat the minimum number of candies, such that when you look at the candies
+     remaining in the boxes, <b>a</b> &lt; <b>b</b> &lt; <b>c</b>.
+<LI> Return the minimum number of candies that you eat.
+<LI> If it's impossible, return -1.
+<LI> <b>a</b>, <b>b</b> and <b>c</b> are all less than or equal to 3000.
+</UL>
+<hr>
+<h3>The examples</h3>
+
+<center>
+<table border=3 cellpadding=3>
+<tr><td align=center>Example</td>
+    <td align=center>a</td>
+    <td align=center>b</td>
+    <td align=center>c</td>
+    <td align=center>Answer</td></tr>
+<tr><td align=center>0</td>
+    <td align=center>15</td>
+    <td align=center>40</td>
+    <td align=center>22</td>
+    <td align=center>19</td></tr>
+<tr><td align=center>1</td>
+    <td align=center>5</td>
+    <td align=center>6</td>
+    <td align=center>6</td>
+    <td align=center>2</td></tr>
+<tr><td align=center>2</td>
+    <td align=center>6</td>
+    <td align=center>1</td>
+    <td align=center>3000</td>
+    <td align=center>-1</td></tr>
+<tr><td align=center>3</td>
+    <td align=center>6</td>
+    <td align=center>4</td>
+    <td align=center>2</td>
+    <td align=center>-1</td></tr>
+<tr><td align=center>4</td>
+    <td align=center>4</td>
+    <td align=center>2</td>
+    <td align=center>6</td>
+    <td align=center>3</td></tr>
+<tr><td align=center>5</td>
+    <td align=center>1</td>
+    <td align=center>1234</td>
+    <td align=center>3000</td>
+    <td align=center>0</td></tr>
+<tr><td align=center>6</td>
+    <td align=center>2789</td>
+    <td align=center>2400</td>
+    <td align=center>1693</td>
+    <td align=center>1806</td></tr>
+</table></center><p>
+
+<h3>Testing yourself</h3>
+
+Like the <a href=../../2010/Cryptography/index.html>Cryptography Problem</a>,
+I have a shell script <b>tests.sh</b>, that you can use to test your program.  When you
+run <b>tests.sh</b>, your answer should be identical to
+<b><a href=answers.txt>answers.txt</a></b>
+
+<hr>
+<h3>Hints</h3>
+Try this on your own.  If you get stuck, scroll down and read what I've written below.
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr>
+
+This is a problem that you simply have to think about in the right
+order.  First off, think about when will you return -1? 
+<UL>
+<LI> Is there a value <b>c</b> that will always require you to return -1?
+<LI> Is there a value <b>b</b> that will always require you to return -1?
+<LI> When it comes to returning -1, does the value of <b>a</b> ever matter?
+</UL>
+
+Answer these questions, and go ahead and write code to return -1 when you have to.
+Your code should work on examples 2 and 3.
+<p>
+Now, assume that you're in a situation when you are not returning -1.  Answer this question:
+<p>
+Is there ever a time when you would ever eat candies from the third box? 
+<p>
+You should see that the answer to this is, "no."  So, the first thing to do is eat just enough 
+candies so that <b>b</b> is less than <b>c</b>.  And the second thing to do is eat just enough
+candies to that <b>a</b> is less than <b>b</b>.  And you're done.
+

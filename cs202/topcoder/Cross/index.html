@@ -1,0 +1,136 @@
+<title>SRM 707, D2, 250-Pointer (Cross)</title>
+<h3>SRM 707, D2, 250-Pointer (Cross)</h3>
+<h3>James S. Plank</h3>
+Sat Feb 11 14:26:46 EST 2017
+<hr>
+
+<UL>
+<LI><a href=https://community.topcoder.com/stat?c=problem_statement&pm=14521&rd=16851>Problem Statement</a>.
+<LI> <a href=main.cpp>A <b>main()</b> with the examples compiled in.</a>
+<LI> <a href=Cross.cpp>A skeleton that compiles with <b>main.cpp</b>.</a>
+<LI> <a href=tests.sh>The <b>tests.sh</b> script</a>.  MD5 hash: <tt>b4ea5b564cb64524078d23340aa1e40c</tt>
+<LI> <a href=answers.txt>The <b>answers.txt</b> file</a>.  MD5 hash: <tt>fb6853a4a0b40ccbec3c2f7ca6236ca7</tt>
+<p>
+<LI> <b>Problem Given in Topcoder</b>: January, 2017
+<LI> <b>Competitors who opened the problem</b>: 271
+<LI> <b>Competitors who submitted a solution</b>: 254
+<LI> <b>Number of correct solutions</b>: 211
+<LI> <b>Accuracy (percentage correct vs those who opened)</b>: 77.9%
+<LI> <b>Average Correct Time</b>: 13 minutes, 0 seconds.
+</UL>
+
+<hr>
+<h3>In case Topcoder's servers are down</h3>
+
+Here is a summary of the problem:
+
+<UL>
+<LI> You are given a vector of strings, where each string in the vector is the same size.
+<LI> The vector has between 3 and 50 strings.
+<LI> The strings contain between 3 and 50 characters each.
+<LI> Each string is composed of the characters <tt>'.'</tt>, and <tt>'#'</tt>.
+<LI> The vector contains a cross if there indices <i>i</i> and <i>j</i> where:
+<pre>
+   Element ( i-1, j   ) = '#'
+   Element ( i,   j-1 ) = '#'
+   Element ( i,   j   ) = '#'
+   Element ( i,   j+1 ) = '#'
+   Element ( i+1, j   ) = '#'
+</pre>
+</UL>
+<LI> Return the string "Exist" if the vector contains a cross.
+<LI> Return the string "Does not exist" if the vector does not contain a cross.
+</UL>
+
+<hr>
+
+<hr>
+<h3>The examples</h3>
+
+<center>
+<table border=3 cellpadding=3>
+<tr><td align=center>Example</td>
+<td align=center>Input</td>
+<td align=center>Answer</td></tr>
+
+<tr><td align=center valign=center>0</td>
+<td align=center valign=center><pre>
+{".##",
+ "###",
+ "##."}
+</pre></td>
+<td align=center valign=center><tt>"Exist"</td></tr>
+
+<tr><td align=center valign=center>1</td>
+<td align=center valign=center><pre>
+{".##",
+ "###",
+ "#.."}
+</pre></td>
+<td align=center valign=center><tt>"Does not exist"</td></tr>
+
+<tr><td align=center valign=center>2</td>
+<td align=center valign=center><pre>
+{"######",
+ "######",
+ "######",
+ "######",
+ "######",
+ "######",
+ "######"}
+</pre></td>
+<td align=center valign=center><tt>"Exist"</td></tr>
+
+<tr><td align=center valign=center>3</td>
+<td align=center valign=center><pre>
+{".#.#",
+ "#.#.",
+ ".#.#",
+ "#.#."}
+</pre></td>
+<td align=center valign=center><tt>"Does not exist"</td></tr>
+
+<tr><td align=center valign=center>4</td>
+<td align=center valign=center><pre>
+{".#.#",
+ "###.",
+ ".###",
+ "#.#."}
+</pre></td>
+<td align=center valign=center><tt>"Exist"</td></tr>
+</table>
+</center><p>
+
+<hr>
+<h3>Testing yourself</h3>
+
+I have a shell script
+<b><a href=tests.sh>tests.sh</a></b>, that you can use to test your program.  When you
+run <b>tests.sh</b>, your answer should be identical to
+<b><a href=answers.txt>answers.txt</a></b>.
+
+
+<hr>
+<h3>Hints</h3>
+Try this on your own.  If you get stuck, return here and read what I've written below.
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr>
+
+Given row <i>i</i> and column <i>j</i>, determining whether there is a cross 
+centered at row <i>i</i> and column <i>j</i> is a matter of testing to see whether
+five characters equal '#'.  It's one <tt>if</tt> statement, which performs the AND
+of five tests.
+The main challenge here is to make sure that <i>i</i> and <i>j</i> 
+are not in the first or last row/column.  If they are in the first or last row/column,
+then they cannot center a cross, and your test might segfault (or worse yet, return
+a wrong answer).
+<p>
+So, what I did was have nested <tt>for</tt> loops, one for rows (<i>i</i>) and one for columns(<i>j</i>).
+Each loop starts at one instead of zero, and the termination test for <i>i</i> is to make
+sure that it is less than <tt>board.size()-1</tt> rather than 
+<tt>board.size()</tt>, like you usually do with a loop.  The termination test for <i>j</i>
+is similar, making sure it is less than <tt>board[0].size()-1</tt>
+rather than <tt>board[0].size()</tt>.  

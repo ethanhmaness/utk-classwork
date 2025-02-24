@@ -1,0 +1,123 @@
+<title>SRM 700, D2, 250-Pointer (Xylophone)</title>
+<h3>SRM 700, D2, 250-Pointer (Xylophone)</h3>
+<h3>James S. Plank</h3>
+Sun Oct 23 14:43:39 EDT 2016
+<hr>
+
+<UL>
+<LI><a href=https://community.topcoder.com/stat?c=problem_statement&pm=14415&rd=16821>Problem Statement</a>.
+<LI> <a href=main.cpp>A <b>main()</b> with the examples compiled in.</a>
+<LI> <a href=Xylophone.cpp>A skeleton that compiles with <b>main.cpp</b>.</a>
+<p>
+<LI> <b>Problem Given in Topcoder</b>: October, 2016
+<LI> <b>Competitors who opened the problem</b>: 287
+<LI> <b>Competitors who submitted a solution</b>: 281
+<LI> <b>Number of correct solutions</b>: 212
+<LI> <b>Accuracy (percentage correct vs those who opened)</b>: 73.87
+<LI> <b>Average Correct Time</b>: 8 minutes, 47 seconds.
+</UL>
+
+<hr>
+<h3>In case Topcoder's servers are down</h3>
+
+Here is a summary of the problem:
+
+<UL>
+<LI> There are keys on a xylophone, numbered 1 to 50.
+<LI> Each key corresponds to a note which is identified by a letter from <tt>A</tt>
+     to <tt>G</tt>.
+<LI> Key 1 corresponds to <tt>A</tt>; key 2 corresponds to <tt>B</tt>, and so on up to 
+     key 7, which corresponds to <tt>G</tt>.  
+<LI> Then, they start over, so key 8 corresponds to <tt>A</tt>;
+     key 9 corresponds to <tt>B</tt>, and so on up to 
+     key 14, which corresponds to <tt>G</tt>.  
+<LI> They keep cycling like that.
+<LI> You are given a vector <b>keys</b>, which contains up to 50 elements, which are each
+     numbers between 1 and 50.
+<LI> You should return the number of distinct notes in <b>key</b>.
+</UL>
+<hr>
+
+<h3>Examples</h3>
+
+<pre>
+Number   Input                              Answer
+-----    ---------------------------------- ------
+0)       {1,8,3}                            2: The notes are A, A and C.  That's two distinct notes.
+1)       {7,3,2,4,1,5,6}                    7: A through G are all in keys
+2)       {1,8,15}                           1: These are all A
+3)       {25,1,17,9,8}                      4
+4)       {11,11,11,11,11,11,11,11,11,11,11} 1
+5)       {50,10,20,30,11,30,24,38,5,2,9}    6
+</pre>
+
+<h3>Testing yourself</h3>
+
+Like the <a href=../../2010/Cryptography/index.html>Cryptography Problem</a>,
+I have a shell script
+<b><a href=tests.sh>tests.sh</a></b>, that you can use to test your program.  When you
+run <b>tests.sh</b>, your answer should be identical to
+<b><a href=answers.txt>answers.txt</a></b>.
+
+<hr>
+
+Try this one without any hints.  If you get stuck or frustrated, come back here, and there
+are hints if you scroll down.
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+Each key on the Xylophone maps to one of seven notes.  You don't care what the notes
+are.  You just want to know which distinct notes are played.  So, take each key played, 
+and calculate its value mod 7.  That value will be different for each note (For example,
+if you play an A, and then a B, the first key mod 7 will not equal the second key mod 7.
+However, if you play two A's, even on different keys, then their values mod 7 will be
+the same).
+<p>
+So what you want to do is count the number of distinct values there are when you take
+each key mod 7.  There are two straightforward ways to do this:
+<OL>
+<LI> Have a vector whose size is seven.  Set a vector's entry to one, whenever the key
+mod 7 equals the entry's index.  Then sum the vector's entries.
+<LI> Have a set of integers, and insert each (key mod 7) into the set.  Since you cannot
+insert duplicates into sets, at the end, the size of the set will be your answer.
+</OL>
+
+Which of these is faster?  The first one -- it is <i>O(n)</i>, where <i>n</i> is the number
+of keys.  The second one is <i>O(n log(n)).</i>

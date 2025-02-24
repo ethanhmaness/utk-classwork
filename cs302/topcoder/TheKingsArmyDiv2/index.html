@@ -1,0 +1,210 @@
+<title>SRM 643, D2, 250-Pointer (TheKingsArmyDiv2)</title>
+<h3>SRM 643, D2, 250-Pointer (TheKingsArmyDiv2)</h3>
+<h3>James S. Plank</h3>
+Wed Jan 18 13:56:49 EST 2017.<br>
+and Wed Aug 19 09:57:12 EDT 2020.
+<hr>
+
+<UL>
+<LI><a href=https://community.topcoder.com/stat?c=problem_statement&pm=13597&rd=16086>Problem Statement</a>.
+<LI> <a href=main.cpp>A <b>main()</b> with the examples compiled in.</a>
+<LI> <a href=TheKingsArmyDiv2.cpp>A skeleton that compiles with <b>main.cpp</b>.</a>
+<LI> MD5 hash of <a href=tests.sh><b>tests.sh</b></a>: <tt>38ffbb665a3189ed67b31a3245b8e81b</tt>
+<LI> MD5 hash of <a href=answers.txt><b>answers.txt</b></a>: <tt>0652c3b1427abaedff0ef700d5db94c9</tt>
+<p>
+<LI> <b>Problem Given in Topcoder</b>: December, 2014
+<LI> <b>Competitors who opened the problem</b>: 761
+<LI> <b>Competitors who submitted a solution</b>: 684
+<LI> <b>Number of correct solutions</b>: 451
+<LI> <b>Accuracy (percentage correct vs those who opened)</b>: 59.26%
+<LI> <b>Average Correct Time</b>: 15 minutes, 21 seconds.
+</UL>
+
+<hr>
+<h3>In case Topcoder's servers are down</h3>
+
+Here is a summary of the problem:
+
+<UL>
+<LI> You are given a vector of strings.  
+<LI> The vector contains between 3 and 50 elements.
+<LI> Each string in the vector will contain between 3 and 50 elements.
+<LI> Each string in the vector will be the same size.
+<LI> Each character of each string is either an 'H' or an 'S'.
+<LI> Two characters are "neighbors" if they are adjacent either horizontally or vertically.
+<LI> At each point in time, if two neighbors are both 'H' characters, then at the next point in
+    time, all of their neighbors will become 'H' characters.
+<LI> Initially, you are allowed to turn any 'S' characters into 'H' characters.
+<LI> Return the smallest number of 'S' characters that you will turn into 'H' characters, such 
+    that eventually, all characters will be turned into 'H' characters.
+</UL>
+<hr>
+<h3>Example zero</h3>
+
+In this example, the string is:
+
+<pre>
+{ "SSSSS",
+  "SSHHS",
+  "SSSSS" }
+</pre>
+
+The answer here is zero, because if you simply wait a few time steps, all of the characters
+will be turned into 'H':
+
+<pre>
+  SSSSS      SSHH       SHHHH      HHHHH
+  SSHHS  ->  SHHHH  ->  HHHHH  ->  HHHHH
+  SSSSS      SSHHS      SHHHH      HHHHH
+</pre>
+
+<hr>
+<h3>The other examples</h3>
+
+<center>
+<table border=3 cellpadding=3>
+<tr><td align=center>Example</td>
+    <td align=center>Input</td>
+    <td align=center>Answer</td></tr>
+<tr><td align=center valign=center>1</td>
+    <td align=center valign=center><pre>{ "SSSSS",
+  "SSHSH",
+  "HSSSS"}</pre></td>
+    <td align=center valign=center>1</td></tr>
+<tr><td align=center valign=center>2</td>
+    <td align=center valign=center><pre>{"SSS",
+ "SSS",
+ "SSS"}</pre></td>
+    <td align=center valign=center>2</td></tr>
+<tr><td align=center valign=center>3</td>
+    <td align=center valign=center><pre>{"HSHSHSH",
+ "SSSHSSS",
+ "SSHSHSS",
+ "SHSHSHS"}</pre></td>
+    <td align=center valign=center>1</td></tr>
+<tr><td align=center valign=center>4</td>
+    <td align=center valign=center><pre>{"HHSH",
+ "HHHS",
+ "HSSS",
+ "SHSH",
+ "HHHS",
+ "HSHH",
+ "SSSH"}</pre></td>
+    <td align=center valign=center>0</td></tr>
+</table></center><p>
+<hr>
+<h3>Testing yourself</h3>
+
+Like the <a href=../../2010/Cryptography/index.html>Cryptography Problem</a>, 
+I have a shell script <b>tests.sh</b>, that you can use to test your program.  When you 
+run <b>tests.sh</b>, your answer should be identical to 
+<b><a href=answers.txt>answers.txt</a></b>
+<hr>
+<h3>Hints</h3>
+This is a problem where your input is going to fall into one of a few cases.  Your job
+is to identify the cases, and do so in the correct order.  A flow chart wouldn't hurt if
+you're not good at doing these things in your head.
+<p>
+Now, give this one a try, and if you want more help, then scroll down and read below.
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+From the example in the writeup, if there are two adjacent H's,
+either horizonally or vertically, then the whole army will eventually
+be happy.  So, the King's goal is to make sure that there are two
+adjacent happy soldiers.  This means that there are only three cases
+to care about:
+
+<OL>
+<LI> If there are two adjacent H's, return 0.
+<LI> Otherwise, if there is an H anywhere, return 1, because the king
+can simply place an H adjacent to one that's already there.
+<LI> If there are no H's, then return 2, because the king needs to
+place two H's next to each other.
+</OL> 
+
+Your program simply needs to test for these cases.  As I intimated above, a flow chart might
+be handy, especially because you can refer to it while you code.  Here's my ASCII-art flow
+chart:
+
+<pre>
+         Start
+           |
+           V
+    |-----------|      Yes
+    | Zero H's? | -------------> Return 2.
+    |-----------|
+           |
+           | No
+           V
+    |---------------|
+    | Two adjacent  |     Yes      
+    | H's in a row? | -------------> Return 0.
+    |---------------|
+           |
+           | No
+           V
+    |---------------|
+    | Two adjacent  |     Yes     
+    | H's in a col? | -------------> Return 0.
+    |---------------|
+           |
+           | No
+           V
+        Return 1.
+</pre>
+
+Here is some more detail on these steps:
+
+<OL>
+<LI> Look to make sure that at least one string has an H.  If not, return 2.  I used a <b>for</b>
+loop and the <b>find()</b> method of strings to do this part.
+<LI> Now, look to see if there is an "HH" in any string.  Again, you can use a <b>for</b> loop and
+the <b>find()</b> method of strings.  If you find an "HH", then return 0.
+<LI> Look for two H's that are adjacent vertically.  This requires a double <b>for</b> loop.  
+In cases like this one, I like to start the first loop with:
+<center>
+<p><tt>for (i = 1; i < state.size(); i++) ...</tt><p>
+</center>
+Think about the reason why.  Now, if you find two H's that are adjacent vertically, return 0.
+<p>
+<LI> If you've reached this point, then there is at least one H, but no adjacent H's.  Return 1.
+</OL>
+

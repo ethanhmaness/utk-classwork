@@ -1,0 +1,69 @@
+You awake in a daze to find yourself alone in the dead of night, surrounded by headstones...
+You must escape this graveyard.
+================================================================
+Not much to see here.
+0, 0> ================================================================
+Not much to see here.
+1, 0> ================================================================
+Not much to see here.
+2, 0> ================================================================
+Not much to see here.
+2, 1> ================================================================
+You see a key on the ground! Might need that to get out of here...
+You picked up a key!
+2, 2> ================================================================
+Not much to see here.
+2, 1> ================================================================
+Not much to see here.
+3, 1> ================================================================
+Not much to see here.
+4, 1> ================================================================
+You see what looks like the corner of a treasure chest poking out of the ground.
+You open the chest and find 10 coins!
+4, 0> ================================================================
+Not much to see here.
+4, 1> ================================================================
+Not much to see here.
+4, 2> ================================================================
+Not much to see here.
+4, 3> ================================================================
+Not much to see here.
+3, 3> ================================================================
+Not much to see here.
+3, 4> ================================================================
+Not much to see here.
+2, 4> ================================================================
+Not much to see here.
+2, 4> ================================================================
+Not much to see here.
+1, 4> ================================================================
+Bad command in input: 'look est'
+1, 4> ================================================================
+You see what looks like the corner of a treasure chest poking out of the ground.
+You see what looks like the corner of a treasure chest poking out of the ground.
+You see what looks like the corner of a treasure chest poking out of the ground.
+1, 4> ================================================================
+You see what looks like the corner of a treasure chest poking out of the ground.
+1, 4> ================================================================
+You see what looks like the corner of a treasure chest poking out of the ground.
+You see what looks like the corner of a treasure chest poking out of the ground.
+You see what looks like the corner of a treasure chest poking out of the ground.
+You open the chest and find 100 coins!
+You open the chest and find 100 coins!
+You open the chest and find 100 coins!
+0, 4> ================================================================
+Not much to see here.
+0, 4> ================================================================
+Not much to see here.
+0, 3> ================================================================
+That looks like the gate out of this spooky place!
+0, 3> ================================================================
+That looks like the gate out of this spooky place!
+You open the gate with your key!
+================================================================
+You successfully escaped the graveyard!
+Game ended after 24 turn(s).
+  LOCATION: 0, 2
+  COINS:    310
+  KEY:      True
+  DEAD:     False

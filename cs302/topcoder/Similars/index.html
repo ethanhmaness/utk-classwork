@@ -1,0 +1,354 @@
+<title>2015 TCO Round 1A, 250-Pointer (Similars)</title>
+<h3>2015 TCO Round 1A, 250-Pointer (Similars)</h3>
+<h3>James S. Plank</h3>
+Sat Feb 18 11:30:16 EST 2017<br>
+Updated Sun Aug 16 01:19:30 EDT 2020
+<hr>
+
+<UL>
+<LI><a href=https://community.topcoder.com/stat?c=problem_statement&pm=13714&rd=16432>Problem Statement</a>.
+<LI> <a href=main.cpp>A <b>main()</b> with the examples compiled in.</a>
+<LI> <a href=Similars.cpp>A skeleton that compiles with <b>main.cpp</b>.</a>
+<LI> <a href=Solution.cpp>A commented solution.</a>
+<LI> <b><a href=tests.sh>tests.sh</a></b>. MD5 hash: <tt>4de513eda4688624fde9d1d89b543c30</tt>
+<LI> <b><a href=answers.txt>answers.txt</a></b>. MD5 hash: <tt>ce2a3bcbef60407309e9b3f7af17d54f</tt>
+<p>
+<LI> <b>Problem Given in Topcoder</b>: 2015
+<LI> <b>Competitors who opened the problem</b>: 1192
+<LI> <b>Competitors who submitted a solution</b>: 936
+<LI> <b>Number of correct solutions</b>: 619
+<LI> <b>Accuracy (percentage correct vs those who opened)</b>: 51.90%
+<LI> <b>Average Correct Time</b>: 23 minutes, 57 seconds.
+</UL>
+
+This is a meaty topcoder problem, so I am going to walk you through a solution.
+Treat this like a lab in physics or chemistry -- you have a bunch of tasks to do in 
+order, and in doing them, you'll either learn new things, or reinforce the learning
+that you already have!
+
+<hr>
+<h3>In case Topcoder's servers are down</h3>
+
+Here is a summary of the problem:
+
+<UL>
+<LI> We define the <i>similarity</i> of two numbers, written in decimal with no leading
+     zeros, to be the number of distinct digits that they have in common.
+<LI> For example, the similarity of 1123 and 331 is two -- they both have the digits 1
+     and 3 in common.
+<LI> You are given two numbers: <b>L</b>, which is any number from 1 and 99,999, and <b>R</b>,
+     which is any number between <b>(L+1)</b> and 100,000.
+<LI> Your job is to return the maximum similarity of any pair of numbers <b>a</b> and <b>b</b>,
+     such that <b>L &le; a < b &le; R</b>.
+</UL>
+<hr>
+<h3>Examples</h3>
+
+<pre>
+#   L      R      Answer
+-   ---    ----   ------
+0   1      10     1: This is when a=1 and b=10.
+1   1      99     2: There are many pairs with similarity 2, for example (23,32) and (38,83).
+2   99     100    0: There is only one pair (99, 100).  It's similarity is zero.
+3   1000   1010   2
+4   444    454    2
+</pre>
+
+<hr>
+<h3>Testing yourself</h3>
+
+Like the <a href=../../2010/Cryptography/index.html>Cryptography Problem</a>,
+I have a shell script
+<b><a href=tests.sh>tests.sh</a></b>, that you can use to test your program.  When you 
+run <b>tests.sh</b>, your answer should be identical to
+<b><a href=answers.txt>answers.txt</a></b>.
+
+<hr>
+<h3>Main.cpp is a little different</h3>
+
+First, my 
+<a href=main.cpp><b>main.cpp</b></a> program works differently than normal.  When 
+you compile it, you should make sure that your <b>Similars</b> class has two public
+strings in it named
+<b>Print_Sets</b> and <b>Print_Similarities</b>.  My skeleton
+(<b><a href=Similars.cpp>Similars.cpp</a></b>) has these, and compiles fine with <b>main.cpp</b>.
+<p>
+Below, I show you the skeleton, how it compiles and how it runs.  First, here's
+<b><a href=Similars.cpp>Similars.cpp</a></b>:
+
+<p><center><table border=3 cellpadding=3><td><pre>
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+
+class Similars {
+  public:
+    string Print_Sets;
+    string Print_Similarities;
+    int maxsim(int L, int R);
+};
+
+int Similars::maxsim(int L, int R)
+{
+  printf("L = %d.  R = %d.\n", L, R);
+  if (Print_Sets == "y") printf("Print_Sets was set.\n");
+  if (Print_Similarities == "y") printf("Print_Similarities was set.\n");
+  return 0;
+}
+</pre></td></table></center><p>
+
+And here's how to compile and run:
+
+<pre>
+UNIX> <font color=darkred><b>g++ main.cpp</b></font>
+UNIX> <font color=darkred><b>./a.out</b></font>
+usage: ./a.out L R print-sets(y|n) print-similarities(y|n)
+UNIX> <font color=darkred><b>./a.out 1 10 n n</b></font>
+L = 1.  R = 10.
+0
+UNIX> <font color=darkred><b>./a.out 20 30 y n </b></font>
+L = 20.  R = 30.
+Print_Sets was set.
+0
+UNIX> <font color=darkred><b>./a.out 44 55 n y</b></font>
+L = 44.  R = 55.
+Print_Similarities was set.
+0
+UNIX> <font color=darkred><b></b></font>
+</pre>
+
+
+Instead of giving my program the example number, like you usually do, 
+you give it <b>L</b>, <b>R</b>,
+and two <b>y|n</b> arguments, which specify whether to print the sets and similarities.  
+I'll tell you what "sets" and "similarities" are below.
+If you say "y" to the first of these, it sets the variable
+<b>Print_Sets</b> to "y", and my program prints the sets.
+If you say "y" to the second of these, it sets the variable
+<b>Print_Similarities</b> to "y", and my program prints the similarities.
+You don't have to use <b>Print_Sets</b> or <b>Print_Similarities</b>, but you'll
+need to define them to make them work with <b>main.cpp</b>.  The 
+nice thing about using them is that you can debug with them, and your programs will
+still work when you submit them to Topcoder (since Topcoder won't set them to "y" -- 
+they will just be empty strings.
+
+<hr>
+<h3>The straightforward approach doesn't work</h3>
+
+The straightforward way to solve this program would be to test the similarity of
+every pair of numbers from <b>L</b> to <b>R</b> in a set of nested <b>for</b> loops.
+Unfortunately, that won't work, because when <b>L</b> is one and <b>R</b> is 100,000, 
+that <b>for</b> loop will run for (100,000 * 100,000) iterations.  That's too big
+(you get roughly 1,000,000 iterations with topcoder.  Maybe 10,000,000 on a good day.).
+
+<hr>
+<h3>Representing the digits present in a number</h3>
+
+Instead, let's think about what we want to look at with each number -- we want to 
+look at the digits that are represented in the number.  For example, the number
+123 has the digits 1, 2 and 3, and the number 11,155 has the digits 1 and 5.  
+You can view the digits as a set: The number 123 has the digit set {1,2,3}, and
+11,155 has {1,5}.  The similarity of two numbers is the size of the intersection of
+its digit sets.  For example, the similarity is 123 and 11,155 is one:
+<p>
+<center>
+{1,2,3} &cap; {1,5} = {1}
+</center>
+<p>
+The similarity of 15,225 and 52,110 is three:
+<p>
+<center>
+{1,2,5} &cap; {0,1,2,5} = {1,2,5}
+</center>
+<p>
+
+Now, how many potential digit sets are there?  That's the same as asking, "How big
+is the power set of {0,1,2,3,4,5,6,7,8,9}?"  That's 2<sup>10</sup> = 1024.  That's
+a very nice and manageably small number.
+<p>
+The best way to represent a small set like this is in binary.  If digit <i>i</i> is
+set in a number, than its set will have the bit <i>(1 &lt;&lt; i)</i> set to one.
+For example:
+
+<p><center>
+<table border=3 cellpadding=3>
+<tr>
+    <td align=center>Set</td>
+    <td align=center>Binary</td>
+    <td align=center>Hex</td></tr>
+<tr><td align=center>{1}</td>
+<td align=center>0000000010</td>
+<td align=center>0x2</td></tr>
+<tr><td align=center>{1,2,3}</td>
+<td align=center>0000001110</td>
+<td align=center>0xe</td></tr>
+<tr><td align=center>{1,5}</td>
+<td align=center>0000100010</td>
+<td align=center>0x22</td></tr>
+<tr><td align=center>{1,2,5}</td>
+<td align=center>0000100110</td>
+<td align=center>0x26</td></tr>
+<tr><td align=center>{0,1,2,5}</td>
+<td align=center>0000100111</td>
+<td align=center>0x27</td></tr></table><p></center>
+
+If you want more explanation of this, more examples and more fun things that we do with
+bits, please read
+the <a href=http://web.eecs.utk.edu/~jplank/plank/classes/cs302/Notes/Bits/>CS302 
+lecture notes on bit arithmetic</a>.
+<hr>
+<h3>Your first job in solving this problem: Compute the digit set for a number</h3>
+
+So, write up the code to do this for each number from <b>L</b> to <b>R</b>, 
+and if <b>Print_Sets</b> equals "y", print it out:  That's what my code does, so 
+here are some examples (don't worry about "Occurrences" or the last line yet -- just
+make sure that the sets equal mine).
+
+<pre>
+UNIX> <font color=darkred><b>./a.out 1 2 y n </b></font>
+i =      1.  Set = 0x002.  Occurrences =   1
+i =      2.  Set = 0x004.  Occurrences =   1
+0
+UNIX> <font color=darkred><b>./a.out 123 129 y n</b></font>
+i =    123.  Set = 0x00e.  Occurrences =   1
+i =    124.  Set = 0x016.  Occurrences =   1
+i =    125.  Set = 0x026.  Occurrences =   1
+i =    126.  Set = 0x046.  Occurrences =   1
+i =    127.  Set = 0x086.  Occurrences =   1
+i =    128.  Set = 0x106.  Occurrences =   1
+i =    129.  Set = 0x206.  Occurrences =   1
+2
+UNIX> <font color=darkred><b>./a.out 11115 11116 y n</b></font>
+i =  11115.  Set = 0x022.  Occurrences =   1
+i =  11116.  Set = 0x042.  Occurrences =   1
+1
+UNIX> <font color=darkred><b>./a.out 11155 11156 y n</b></font>
+i =  11155.  Set = 0x022.  Occurrences =   1
+i =  11156.  Set = 0x062.  Occurrences =   1
+2
+UNIX> <font color=darkred><b>./a.out 52110 52111 y n</b></font>
+i =  52110.  Set = 0x027.  Occurrences =   1
+i =  52111.  Set = 0x026.  Occurrences =   1
+3
+UNIX> <font color=darkred><b></b></font>
+</pre>
+
+<hr>
+<h3>Job 2: A Map</h3>
+
+Your second job should be to create a map, keyed on the set number, whose val is the
+number of times you've seen that set.  This will be important to keep track of.
+You can test it as I do, by printing out each set, and the number of times that the set
+has occurred, as you calculate the set number.  In the example below, you can see that
+1 and 11 both create the same set number, which raises the "Occurrences" of 0x2 to 2:
+
+<pre>
+UNIX> <font color=darkred><b>./a.out 1 11 y n </b></font>
+i =      1.  Set = 0x002.  Occurrences =   1
+i =      2.  Set = 0x004.  Occurrences =   1
+i =      3.  Set = 0x008.  Occurrences =   1
+i =      4.  Set = 0x010.  Occurrences =   1
+i =      5.  Set = 0x020.  Occurrences =   1
+i =      6.  Set = 0x040.  Occurrences =   1
+i =      7.  Set = 0x080.  Occurrences =   1
+i =      8.  Set = 0x100.  Occurrences =   1
+i =      9.  Set = 0x200.  Occurrences =   1
+i =     10.  Set = 0x003.  Occurrences =   1
+i =     11.  Set = 0x002.  Occurrences =   2
+1
+UNIX> <font color=darkred><b>./a.out 1231 1233 y n</b></font>
+i =   1231.  Set = 0x00e.  Occurrences =   1
+i =   1232.  Set = 0x00e.  Occurrences =   2
+i =   1233.  Set = 0x00e.  Occurrences =   3
+3
+UNIX> <font color=darkred><b></b></font>
+</pre>
+
+<hr>
+<h3>Job 3: Iterating through the map</h3>
+
+Now that you have your map, you want to iterate through all pairs of elements.
+For each pair, you'll calculate the set intersection, and then use bit arithmetic 
+to calculate the size of the intersection.  If the number of occurrences of a set is
+two or more, you'll want to compare the intersection of the set with itself, because two
+numbers have the same set.   In that case, you don't need to compare it to any other
+elements (Why?  Because it can't have a higher similarity with any other set than it has
+to itself).
+<p>
+This is a nested <b>for</b> loop with iterators.  I had the first iterator go from
+<b>begin()</b> to <b>end()</b>.  Then, if the element to which the iterator pointed
+had only one occurrence, I had a second iterator that started one past the first iterator
+stopped when it got to <b>end()</b>.  I recorded the maximum similarity of
+all of iterators with the first.  
+If the first iterator's element had two or more occurrences, then I simply calculated
+its similarity with itself.
+
+<p>
+Go ahead and write these loops and print out the set ids, and their intersections
+(which is simply the bitwise AND operator (&amp;)).  Compare them with my program, and
+for now, ignore the "similarities".   Just make sure your loop is printing out the
+right S1's and S2's, and the right intersections, first when all of the occurrences are one.
+
+<pre>
+UNIX> <font color=darkred><b>./a.out 1 4 y y </b></font>
+i =      1.  Set = 0x002.  Occurrences =   1
+i =      2.  Set = 0x004.  Occurrences =   1
+i =      3.  Set = 0x008.  Occurrences =   1
+i =      4.  Set = 0x010.  Occurrences =   1
+S1: 0x002  S2: 0x004  S1&S2: 0x000  Similarity: 0
+S1: 0x002  S2: 0x008  S1&S2: 0x000  Similarity: 0
+S1: 0x002  S2: 0x010  S1&S2: 0x000  Similarity: 0
+S1: 0x004  S2: 0x008  S1&S2: 0x000  Similarity: 0
+S1: 0x004  S2: 0x010  S1&S2: 0x000  Similarity: 0
+S1: 0x008  S2: 0x010  S1&S2: 0x000  Similarity: 0
+0
+UNIX> <font color=darkred><b>./a.out 9871 9874 y y</b></font>
+i =   9871.  Set = 0x382.  Occurrences =   1
+i =   9872.  Set = 0x384.  Occurrences =   1
+i =   9873.  Set = 0x388.  Occurrences =   1
+i =   9874.  Set = 0x390.  Occurrences =   1
+S1: 0x382  S2: 0x384  S1&S2: 0x380  Similarity: 3
+S1: 0x382  S2: 0x388  S1&S2: 0x380  Similarity: 3
+S1: 0x382  S2: 0x390  S1&S2: 0x380  Similarity: 3
+S1: 0x384  S2: 0x388  S1&S2: 0x380  Similarity: 3
+S1: 0x384  S2: 0x390  S1&S2: 0x380  Similarity: 3
+S1: 0x388  S2: 0x390  S1&S2: 0x380  Similarity: 3
+3
+UNIX> <font color=darkred><b></b></font>
+</pre>
+
+And next when you have multiple occurrences of the same set:
+
+<pre>
+UNIX> <font color=darkred><b>./a.out 1231 1233 y y</b></font>
+i =   1231.  Set = 0x00e.  Occurrences =   1
+i =   1232.  Set = 0x00e.  Occurrences =   2
+i =   1233.  Set = 0x00e.  Occurrences =   3
+S1: 0x00e  S2: 0x00e  S1&S2: 0x00e  Similarity: 3
+3
+UNIX> <font color=darkred><b></b></font>
+</pre>
+
+<hr>
+<h3>Job 4: Calculating the similarites</h3>
+
+This is your last job -- for each intersection, calculate its size, again with bit
+arithmetic.  Test your code with mine, calculate the maximum, and you are ready to 
+submit.
+
+<hr>
+<h3>Why is this fast enough?</h3>
+
+The maximum size of your map is 1024, or 2<sup>10</sup>, so your nested <b>for</b> loop, which is 
+an <i>O(n<sup>2</sup>)</i> loop, is 2<sup>20</sup>.  That's fast enough for topcoder!
+
+<hr>
+<h3>My Solution</h3>
+
+My solution is in 
+<b><a href=Solution.cpp>Solution.cpp</a></b>.
+

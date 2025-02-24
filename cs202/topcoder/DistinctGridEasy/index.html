@@ -1,0 +1,137 @@
+<title>SRM 720, D2, 250-Pointer (DistinctGridEasy)</title>
+<h3>SRM 720, D2, 250-Pointer (DistinctGridEasy)</h3>
+<h3>James S. Plank</h3>
+Tue Oct 15 16:12:35 EDT 2019
+<hr>
+
+<UL>
+<LI><a href=https://community.topcoder.com/stat?c=problem_statement&pm=14668&rd=16957>Problem Statement</a>.
+<LI> <a href=main.cpp>A <b>main()</b> with the examples compiled in.</a>
+<LI> <a href=DistinctGridEasy.cpp>A skeleton that compiles with <b>main.cpp</b>.</a>
+<p>
+<LI> <b>Problem Given in Topcoder</b>: September, 2017
+<LI> <b>Competitors who opened the problem</b>: 311
+<LI> <b>Competitors who submitted a solution</b>: 267
+<LI> <b>Number of correct solutions</b>: 188
+<LI> <b>Accuracy (percentage correct vs those who opened)</b>: 60.4%
+<LI> <b>Average Correct Time</b>: 15 minutes, 28 seconds.
+</UL>
+
+<hr>
+<h3>In case Topcoder's servers are down</h3>
+
+(Please use the workflow in the problem <a href=http://web.eecs.utk.edu/~plank/topcoder-writeups/2010/Cryptography/index.html>Cryptography</a>).  There is a <b>tests.sh</b> program which, when you
+run it, should create output equal to 
+<b><a href=answers.txt>answers.txt</a></b>.  Mine ran in 3 seconds.
+
+<p>
+Here is a summary of the problem:
+
+<UL>
+<LI> You are given two numbers, <i>n</i> and <i>k</i> and a vector <i>grid</i>, which 
+contains <i>n*n</i> numbers which between 0 and <i>k-1</i>.
+<LI> You are to treat <i>grid</i> as an <i>n</i> by <i>n</i> grid, where the number in
+row <i>i</i> and column <i>j</i> is in index <i>(i*n+j)</i> of <i>grid</i>.
+<LI> If every row and column of the grid contains exactly <i>k</i> distinct numbers, 
+return the string "Good".
+<LI> To be more precise, a row like { 0, 1, 1, 1, 1, 3 } has three distinct numbers: 0, 1 and 3.
+<LI> Otherwise, return "Bad".
+<LI> Topcoder has <i>n</i> and <i>k</i> limited to 50.    My testing program goes up to 150.
+</UL>
+
+<hr>
+
+<h3>The examples</h3>
+
+<center>
+<table border=3 cellpadding=3>
+<tr><td align=center>Example</td>
+<td align=center><b>n</b></td>
+<td align=center><b>k</b></td>
+<td align=center><b>grid</b></td>
+<td align=center>Answer</td></tr>
+
+<tr><td align=center>0</td>
+<td align=center>3</td>
+<td align=center>3</td>
+<td align=center><pre>{ 0,1,2, 
+  1,2,0, 
+  2,0,1 }</pre></td>
+<td align=center>"Good"</td></tr>
+
+<tr><td align=center>1</td>
+<td align=center>3</td>
+<td align=center>3</td>
+<td align=center><pre>{ 0,1,2, 
+  1,2,0, 
+  2,0,0 } </pre></td>
+<td align=center>"Bad"</td></tr>
+
+<tr><td align=center>0</td>
+<td align=center>5</td>
+<td align=center>2</td>
+<td align=center><pre>{ 0,0,0,0,1, 
+  0,1,0,0,0, 
+  0,0,1,0,0, 
+  1,0,0,0,0, 
+  0,0,0,1,0 } </pre></td>
+<td align=center>"Good"</td></tr>
+
+<tr><td align=center>0</td>
+<td align=center>5</td>
+<td align=center>2</td>
+<td align=center><pre>{ 2,2,0,0,1, 
+  0,1,2,2,0, 
+  0,2,1,0,0, 
+  1,0,0,0,2, 
+  0,0,2,1,0 } </pre></td>
+<td align=center>"Good"</td></tr>
+
+<tr><td align=center>0</td>
+<td align=center>7</td>
+<td align=center>4</td>
+<td align=center><pre>{ 3,2,1,0,3,2,1, 
+  3,2,1,3,2,1,2, 
+  2,0,3,1,1,0,3, 
+  1,3,0,2,0,3,0, 
+  0,3,1,2,3,2,1, 
+  1,1,1,2,1,0,3, 
+  3,1,2,0,3,2,3 } </pre></td>
+<td align=center>"Bad"</td></tr>
+
+</table></center><p>
+<hr>
+
+
+Given a collection of <i>n</i> values, how do you determine how many of them are distinct?
+If I wanted a solution that's easy to program, I'd use a 
+<b>set</b>: Insert each value into the set.  Then the size of the set is the number 
+of distinct elements.
+<p>
+Armed with that knowledge, you should have two doubly-nested for loops.  Here is the first:
+
+<UL>
+<LI> For every row of <b>grid</b>:
+<LI> Clear the set.
+<LI> Insert each element in the row into the set.
+<LI> Check the set's size.  If it doesn't equal <i>k</i> return "Bad."
+</UL>
+
+<p>
+The second set of loops does the same thing, but with columns instead of rows.
+<p>
+If you complete both sets of loops, then the answer is "Good".
+<p>
+The running time of this is <i>O(n<sup>2</sup> log n)</i>.   That's because you loop
+<i>n</i> times for each row and each column, and on each iteration, you create a set
+of <i>n</i> elements -- that's <i>O(n log n)</i> for each iteration, and there are
+<i>2n</i> iterations: 
+<i>O(n<sup>2</sup> log n)</i>.
+<p>
+You can make this faster by using a vector with <i>k</i> elements.  On each iteration,
+zero the vector, and then for each row, increment the vector for each element in the
+row.  If the vector has any zero's then return "Bad".  If you successfully look at every
+row and column, then return "Good."
+<p>
+This is now <i>O(n<sup>2</sup>)</i>, because again, you have <i>2n</i> iterations, 
+but now each iteration is doing <i>O(n)</i> work.

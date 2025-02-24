@@ -1,0 +1,106 @@
+<title>SRM 704, D2, 250-Pointer (SwapAndArithmetic)</title>
+<h3>SRM 704, D2, 250-Pointer (SwapAndArithmetic)</h3>
+<h3>James S. Plank</h3>
+Fri Feb  3 14:42:38 EST 2017
+<hr>
+
+<UL>
+<LI><a href=https://community.topcoder.com/stat?c=problem_statement&pm=14465&rd=16849>Problem Statement</a>.
+<LI> <a href=main.cpp>A <b>main()</b> with the examples compiled in.</a>
+<LI> <a href=SwapAndArithmetic.cpp>A skeleton that compiles with <b>main.cpp</b>.</a>
+<LI> <b><a href=tests.sh>tests.sh</a></b>. MD5 hash: <tt>ea44cca1682b182cf0907f52e85c84ae</tt>
+<LI> <b><a href=answers.txt>answers.txt</a></b>. MD5 hash: <tt>0c1d33d050ca57cba10f7757eb56f57b</tt>
+<p>
+<LI> <b>Problem Given in Topcoder</b>: December, 2016
+<LI> <b>Competitors who opened the problem</b>: 413
+<LI> <b>Competitors who submitted a solution</b>: 385
+<LI> <b>Number of correct solutions</b>: 353
+<LI> <b>Accuracy (percentage correct vs those who opened)</b>: 85.47%
+<LI> <b>Average Correct Time</b>: 8 minutes, 33 seconds.
+</UL>
+
+<hr>
+<h3>In case Topcoder's servers are down</h3>
+
+Here is a summary of the problem:
+
+<UL>
+<LI> A vector <tt>v</tt> of integers is an arithmetic sequence if for each <i>i &gt; 0</i>, 
+     <tt>(v[i] - v[i-1])</tt> is the same value.
+<LI> For example, { 1, 2, 3 }, { 2, 4, 6 } and { 10, 9, 8 } are all arithmetic sequences.
+     { 10, 9, 7 } and { 2, 4, 2 } are not.
+<LI> You are given a vector <tt>x</tt> which contains between 2 and 50 integers.
+<LI> The values of <tt>x</tt> will be between 1 and 1000.
+<LI> If it is possible to swap an arbitrary number of elements of <tt>x</tt> to yield an
+     arithmetic sequence, then return "Possible".
+<LI> Otherwise, return "Impossible".
+</UL>
+<hr>
+<h3>The examples</h3>
+
+<center>
+<table border=3 cellpadding=3>
+<tr><td align=center>Example</td>
+    <td align=center>x</td>
+    <td align=center>Answer</td></tr>
+<tr><td align=center valign=center>0</td>
+    <td align=center valign=center><pre>{ 3, 1, 2 }</pre></td>
+    <td align=center valign=center><pre>"Possible" (swap it to become { 3, 2, 1 } or { 1, 2, 3 }</pre></td>
+<tr><td align=center valign=center>1</td>
+    <td align=center valign=center><pre>{ 1, 2, 4 }</pre></td>
+    <td align=center valign=center><pre>"Impossible"</pre></td>
+<tr><td align=center valign=center>2</td>
+    <td align=center valign=center><pre>{ 1, 1, 1, 1, 1, 1 }</pre></td>
+    <td align=center valign=center><pre>"Possible"</pre></td>
+<tr><td align=center valign=center>3</td>
+    <td align=center valign=center><pre>{ 1000, 704, 1 }</pre></td>
+    <td align=center valign=center><pre>"Impossible"</pre></td>
+<tr><td align=center valign=center>4</td>
+    <td align=center valign=center><pre>{ 7, 3, 11, 5, 1, 9 }</pre></td>
+    <td align=center valign=center><pre>"Possible"</pre></td>
+</table></center><p>
+<hr>
+<h3>Testing yourself</h3>
+
+Like the <a href=../../2010/Cryptography/index.html>Cryptography Problem</a>,
+I have a shell script <b>tests.sh</b>, that you can use to test your program.  When you
+run <b>tests.sh</b>, your answer should be identical to
+<b><a href=answers.txt>answers.txt</a></b>
+
+<hr>
+<h3>Hints</h3>
+
+
+Try this on your own.  If you get stuck, return here and read what I've written below.
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr>
+
+If you're here, think about how much easier the problem is if you sort the
+input.  Now, go back and try to solve it again, and if you get stuck again, 
+come back.
+
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr> <hr>
+<hr> <hr> <hr> <hr>
+
+What you want to do is sort the vector.  You can do that most easily with the
+<b>sort()</b> method from the STL <b>algorithms</b> library.  You need to 
+include <b>algorithms</b>, and then you can sort the vector with <b>sort(x.begin(), x.end())</b>.
+Then, the easiest thing to do is try to discover if the vector is not an arithmetic
+sequence.  
+<p>
+The way that I did that was to:
+<UL>
+<LI>  First return "Possible" if <b>x</b> only has one element.
+<LI> Then, I stored the difference between the first two elements of <b>x</b> into a
+variable <b>diff</b>.
+<LI> Then, I checked every adjacenct pair of elements in <b>x</b>.  If the difference
+between any of these is <i>not</i> equal to <b>diff</b>, then you can return "Impossible."
+<LI> If you have checked all adjacenct pairs of elements, then you can return "Possible."
+</UL>
+

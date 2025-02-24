@@ -1,0 +1,10 @@
+PERSON Patrick-Mahomes 15
+PERSON Travis-Kelce 87
+PERSON Jimmy-Garoppolo 10
+PERSON Matthew-Stafford 10
+PERSON Aaron-Donald 99
+PERSON Joe-Burrow 9
+PERSON Deebo-Samuel 19
+PERSON Ja'Marr-Chase 1
+ORDER Playoff-Weekend 2
+ORDER Too-Much-TV 3

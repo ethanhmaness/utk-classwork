@@ -1,0 +1,104 @@
+<title>SRM 564, D2, 500-Pointer (TheBrickTowerMediumDivTwo.cpp.html)</title>
+<h3>SRM 564, D2, 500-Pointer (TheBrickTowerMediumDivTwo.cpp.html)</h3>
+<h3>James S. Plank</h3>
+Wed Jan 30 08:18:01 EST 2019
+<hr>
+
+<UL>
+<LI><a href=https://community.topcoder.com/stat?c=problem_statement&pm=12162&rd=15176>Problem Statement</a>.
+<LI> <a href=main.cpp>A <b>main()</b> with the examples compiled in.</a>
+<LI> <a href=TheBrickTowerMediumDivTwo.cpp>A skeleton that compiles with <b>main.cpp</b>.</a>
+<p>
+<LI> <b>Problem Given in Topcoder</b>: 2012.
+<LI> <b>Competitors who opened the problem</b>: 1009
+<LI> <b>Competitors who submitted a solution</b>: 655
+<LI> <b>Number of correct solutions</b>: 410
+<LI> <b>Accuracy (percentage correct vs those who opened)</b>: 40.6
+<LI> <b>Accuracy (percentage correct vs those who submittes)</b>: 62.6
+<LI> <b>Average Correct Time</b>: 25 minutes, 13 seconds
+</UL>
+
+<hr>
+<h3>In case Topcoder's servers are down</h3>
+
+Here is a summary of the problem:
+
+<UL>
+<LI> You are given a vector of numbers that represent heights of towers.
+<LI> The vector will contain between 1 and 7 elements, and the elements will be
+     between 1 and 47.
+<LI> You want to place each tower on an integer coordinate on the x axis.
+<LI> You want to make sure that every pair of adjacent towers is at least <i>u</i> units
+     apart, where <i>u</i> is the height of the taller tower of the pair.
+<LI> You want to minimize the distance between the first tower and the last.
+<LI> To do this, you need to determine the optimal ordering of the towers.
+<LI> Return the indices of the towers in this order.
+<LI> If multiple orderings give you this minimized distance, then return the 
+     ordering that is lexicographically the smallest.
+</UL>
+<hr>
+
+To help you, let's look at example 0:  <tt>{ 4, 7, 5 }</tt>.  There are six orderings of these
+three towers.  Here is where you would place them on the x axis if the leftmost tower goes at
+coordinate 0.  Note that these orderings are sorted lexicographically:
+
+<pre>
+{ 0, 1, 2 }: Tower with height 4 -> 0.   Tower with height 7: 7.   Tower with height 5: 14.
+{ 0, 2, 1 }: Tower with height 4 -> 0.   Tower with height 7: 12.  Tower with height 5: 5.
+{ 1, 0, 2 }: Tower with height 4 -> 7.   Tower with height 7: 0.   Tower with height 5: 12.
+{ 1, 2, 0 }: Tower with height 4 -> 12.  Tower with height 7: 0.   Tower with height 5: 7.
+{ 2, 0, 1 }: Tower with height 4 -> 5.   Tower with height 7: 12.  Tower with height 5: 0.
+{ 2, 1, 0 }: Tower with height 4 -> 14.  Tower with height 7: 7.   Tower with height 5: 0.
+</pre>
+
+Four of these orderings have a distance of 12, and two have distance of 14.  So, you want
+to return the lexicographically smallest ordering whose distance is 12.  That ordering
+is: <tt> { 0, 2, 1 } </tt>
+<hr>
+<h3>The examples</h3>
+
+<center>
+<table border=3 cellpadding=3>
+<tr><td align=center>Example</td>
+    <td align=center>Input</td>
+    <td align=center>Answer</td></tr>
+<tr><td align=center valign=center>0</td>
+    <td align=center valign=center><pre>{4, 7, 5}</pre></td>
+    <td align=center valign=center><pre>{0, 2, 1}</pre></td>
+<tr><td align=center valign=center>1</td>
+    <td align=center valign=center><pre>{4, 4, 4, 4, 4, 4, 4}</pre></td>
+    <td align=center valign=center><pre>{0, 1, 2, 3, 4, 5, 6}</pre></td>
+<tr><td align=center valign=center>2</td>
+    <td align=center valign=center><pre>{2, 3, 3, 2}</pre></td>
+    <td align=center valign=center><pre>{0, 3, 1, 2 }</pre></td>
+<tr><td align=center valign=center>3</td>
+    <td align=center valign=center><pre>{13, 32, 38, 25, 43, 47, 6}</pre></td>
+    <td align=center valign=center><pre>{0, 6, 3, 1, 2, 4, 5 }</pre></td>
+</table></center><p>
+
+<hr>
+<h3>Testing yourself</h3>
+
+Like the <a href=../../2010/Cryptography/index.html>Cryptography Problem</a>, 
+I have a shell script 
+<b><a href=tests.sh>tests.sh</a></b>, that you can use to test your program.  When you 
+run <b>tests.sh</b>, your answer should be identical to 
+<b><a href=answers.txt>answers.txt</a></b>.
+
+<hr>
+<h3>Hints</h3>
+
+As with a lot of Topcoder problems, you'll be tempted to try to be smart with this one, and
+do some variant of sorting the towers.  Don't succumb to that temptation.  The constraints
+are so small that you can easily enumerate all orderings of towers,   
+<p>
+What kind of enumeration?  This is an enumeration of permutations of the indices of the
+towers.  Go ahead and use <tt>next_permutation()</tt> from the C++ algorithms library to implement
+this -- for each permutation, calculate the distance between the towers, and store the 
+permutation that gives you the minimum.  Store the first of these, because <tt>next_permutation</tt>
+runs in lexicographic order.  
+<p>
+What is the running time of this?  For a vector of size <i>n</i>, 
+there are <i>(n!)</i> permutations,
+so the running time is <i>O(n!)</i>.  Yes, that's slow, but since the maximum vector size is 7, and
+(7!) = 5040, this will run easily within Topcoder's constraints.

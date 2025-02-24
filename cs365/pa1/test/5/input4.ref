@@ -1,0 +1,46 @@
+You awake in a daze to find yourself alone in the dead of night, surrounded by headstones...
+You must escape this graveyard.
+================================================================
+Not much to see here.
+0, 0> ================================================================
+You see what looks like the corner of a treasure chest poking out of the ground.
+You open the chest and find 10 coins!
+1, 0> ================================================================
+You see what looks like the corner of a treasure chest poking out of the ground.
+You open the chest and find 10 coins!
+1, 1> ================================================================
+You see what looks like the corner of a treasure chest poking out of the ground.
+You open the chest and find 10 coins!
+1, 2> ================================================================
+A treasure chest sits already opened.
+The chest is empty...
+1, 1> ================================================================
+A treasure chest sits already opened.
+The chest is empty...
+1, 0> ================================================================
+Not much to see here.
+2, 0> ================================================================
+Not much to see here.
+3, 0> ================================================================
+You see what looks like the corner of a treasure chest poking out of the ground.
+3, 0> ================================================================
+You see what looks like the corner of a treasure chest poking out of the ground.
+You open the chest and find 10 coins!
+3, 1> ================================================================
+That looks like the gate out of this spooky place!
+3, 1> ================================================================
+That looks like the gate out of this spooky place!
+You try to open the gate, but it's locked. Must need a key...
+3, 2> ================================================================
+Bad command in input: 'got east'
+3, 2> ================================================================
+Not much to see here.
+A bony arm juts out of the ground and grabs your ankle!
+You've been dragged six feet under by a skeleton.
+================================================================
+You did not escape the graveyard. GAME OVER
+Game ended after 13 turn(s).
+  LOCATION: 4, 2
+  COINS:    40
+  KEY:      False
+  DEAD:     True

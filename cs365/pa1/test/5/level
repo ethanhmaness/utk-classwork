@@ -1,0 +1,18 @@
+size 8 3
+skeleton 0 2
+loot 1 2 10
+skeleton 2 2
+exit 3 2
+skeleton 4 2
+skeleton 7 2
+key 0 1
+skeleton 0 1
+loot 1 1 10
+loot 2 1 10
+skeleton 2 1
+loot 3 1 10
+key 7 1
+loot 7 1 10
+loot 1 0 10
+skeleton 5 0
+skeleton 7 0
